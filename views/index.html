@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chopper Dashboard</title>
+        <link rel="stylesheet" href="static/main.css">
+    </head>
+    <body>
+        <div class="ha">
+            <h1>Server Dashboard</h1>
+            <h4>Montyhacks Demo Server</h4>
+        </div>
+        </div>
+        <% Object.keys(serverData.opts).forEach((x, i) => { %>
+            <% if (i <= 3) { %>
+            <div class="toggleArea"> 
+                <%= x %>
+                <label class="switch">
+                    <input name="<%=x%>" id="<%=x%>" class='check' type="checkbox" onChange="changeSetting(event)">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <% } else {%>
+                <div class="toggleArea"> 
+                <%= x %>
+                    <input name="<%=x%>" id="<%=x%>" class='num' type="number" onChange="changeSettingNum(event)">
+                </label>
+            </div>
+            <% } %>
+        <% }) %>
+
+        <button onclick="window.location.href='/bymember'">See your server's stats, by the member</button>
+
+        <script>
+            async function changeSetting(e) {
+                let req = {};
+                req[`${e.target.name}`] = e.target.checked;
+                console.log(e.target.checked, e.target.name , "hi");
+                console.log('r', req);
+                await fetch("http://localhost:4000/api/updateSettings", {
+                    method: 'POST',
+                    headers: {
+                        'access-control-allow-origin': '*',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(req)
+                });
+            }
+
+            async function changeSettingNum(e) {
+                let req = {};
+                req[`${e.target.name}`] = Number(e.target.value);
+                console.log(e.target.value, e.target.name , "hi");
+                console.log('r', req);
+                await fetch("http://localhost:4000/api/updateSettings", {
+                    method: 'POST',
+                    headers: {
+                        'access-control-allow-origin': '*',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(req)
+                });
+            }
+        </script>
+        
+        
+        
+    </body>
+</html>
