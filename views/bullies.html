@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chopper Dashboard</title>
+        <link rel="stylesheet" href="static/main.css">
+    </head>
+    <body>
+        <div class="ha">
+            <h1>Bullying in Your Server</h1>
+            <h4>Montyhacks Demo Server</h4>
+        </div>
+        </div>
+        <button onclick="window.location.href='/'">See your server's stats, by the member</button>
+        <% console.log(serverData) %>
+        <% Object.keys(serverData.users).reverse().forEach((x, i) => { %>
+            <div class="toggleArea"> 
+                <div class="profileBasics">
+                    <img src=<%=serverData.users[x].picture%>>
+                    <div class='textW'>
+                        <div class="p"><%= serverData.users[x].username %></div>
+                        <p>ID: <%=serverData.users[x].id%></p>
+                    </div>
+                </div>
+                <div><%= serverData.users[x].warns %> Warnings</div>
+            </div>
+        <% }) %>
+        
+        
+        
+    </body>
+</html>
